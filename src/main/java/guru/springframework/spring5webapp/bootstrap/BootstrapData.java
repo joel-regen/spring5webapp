@@ -24,33 +24,44 @@ public class BootstrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args)  {
-        Publisher oreilly = new Publisher(1234566L, "OReilly", "1105 Main St.", "New York", "NY", 12345);
-        publisherRepository.save(oreilly);
+        System.out.println("Started in Bootstrap");
+
+        Publisher publisher = new Publisher("OReilly", "1105 Main St.", "New York", "NY", 12345);
+//        Publisher publisher = new Publisher();
+//        publisher.setName("SFG Publishing");
+//        publisher.setCity("St Petersburg");
+//        publisher.setState("FL");
+
+        publisherRepository.save(publisher);
+
+        System.out.println("Publisher Count: " + publisherRepository.count());
 
         Author eric = new Author("Eric", "Evans");
-        Book  ddd = new Book("Domain Driven Design", "1234123");
+        Book ddd = new Book("Domain Driven Design", "123123");
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
 
-        Author rod = new Author("Rod", "Johnson");
-        Book noEJB = new Book("J2EE Development without EJB", "1234987492792");
-        rod.getBooks().add(noEJB);
-        noEJB.getAuthors().add(rod);
-
-
-//        ddd.setPublisher(oreilly);
-//        oreilly.getBooks().add(ddd);
-//        noEJB.setPublisher(oreilly);
-//        oreilly.getBooks().add(noEJB);
+        ddd.setPublisher(publisher);
+        publisher.getBooks().add(ddd);
 
         authorRepository.save(eric);
         bookRepository.save(ddd);
+        publisherRepository.save(publisher);
+
+        Author rod = new Author("Rod", "Johnson");
+        Book noEJB = new Book("J2EE Development without EJB", "3939459459");
+        rod.getBooks().add(noEJB);
+        noEJB.getAuthors().add(rod);
+
+        noEJB.setPublisher(publisher);
+        publisher.getBooks().add(noEJB);
+
         authorRepository.save(rod);
         bookRepository.save(noEJB);
-//        publisherRepository.save(oreilly);
+        publisherRepository.save(publisher);
 
-        System.out.println("Started in bootstrap");
-        System.out.println("Number of books " + bookRepository.count());
-        System.out.println("Publishers: " + oreilly + ", num books: " + oreilly.getBooks().size());
+        System.out.println("Number of Books: " + bookRepository.count());
+        System.out.println("Publisher Number of Books: " + publisher.getBooks().size());
+        System.out.println("Publisher: " + publisher);
     }
 }
