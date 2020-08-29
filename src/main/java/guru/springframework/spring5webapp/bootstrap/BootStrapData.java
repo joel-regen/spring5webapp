@@ -10,7 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by jt on 12/23/19.
+ * Created by jt on 12/23/19. testing.
  */
 @Component
 public class BootStrapData implements CommandLineRunner {
