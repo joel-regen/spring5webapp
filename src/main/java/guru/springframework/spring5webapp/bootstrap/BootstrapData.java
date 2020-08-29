@@ -46,7 +46,6 @@ public class BootstrapData implements CommandLineRunner {
 
         authorRepository.save(eric);
         bookRepository.save(ddd);
-        publisherRepository.save(publisher);
 
         Author rod = new Author("Rod", "Johnson");
         Book noEJB = new Book("J2EE Development without EJB", "3939459459");
@@ -58,7 +57,6 @@ public class BootstrapData implements CommandLineRunner {
 
         authorRepository.save(rod);
         bookRepository.save(noEJB);
-        publisherRepository.save(publisher);
 
         System.out.println("Number of Books: " + bookRepository.count());
         System.out.println("Publisher Number of Books: " + publisher.getBooks().size());
