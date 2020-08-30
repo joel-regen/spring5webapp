@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * Created by jt on 12/23/19. testing.
  */
 @Component
-public class BootStrapData implements CommandLineRunner {
+public class BootstrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository; // testing.
     private final BookRepository bookRepository;
