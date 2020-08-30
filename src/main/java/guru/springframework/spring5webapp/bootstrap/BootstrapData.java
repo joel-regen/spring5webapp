@@ -15,26 +15,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class BootStrapData implements CommandLineRunner {
 
-    private final AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository; // testing.
     private final BookRepository bookRepository;
     private final PublisherRepository publisherRepository;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
+    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.publisherRepository = publisherRepository;
     }
 
     @Override
-    public void run(String... args) throws Exception {
-
+    public void run(String... args)  {
         System.out.println("Started in Bootstrap");
 
-        Publisher publisher = new Publisher();
-        publisher.setName("SFG Publishing");
-        publisher.setCity("St Petersburg");
-        publisher.setState("FL");
-
+        Publisher publisher = new Publisher("OReilly", "1105 Main St.", "New York", "NY", 12345);
         publisherRepository.save(publisher);
 
         System.out.println("Publisher Count: " + publisherRepository.count());
@@ -44,6 +39,9 @@ public class BootStrapData implements CommandLineRunner {
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
 
+        ddd.setPublisher(publisher);
+        publisher.getBooks().add(ddd);
+
         authorRepository.save(eric);
         bookRepository.save(ddd);
 
@@ -52,9 +50,14 @@ public class BootStrapData implements CommandLineRunner {
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
+        noEJB.setPublisher(publisher);
+        publisher.getBooks().add(noEJB);
+
         authorRepository.save(rod);
         bookRepository.save(noEJB);
 
         System.out.println("Number of Books: " + bookRepository.count());
+        System.out.println("Publisher Number of Books: " + publisher.getBooks().size());
+        System.out.println("Publisher: " + publisher);
     }
 }

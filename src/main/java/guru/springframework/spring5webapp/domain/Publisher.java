@@ -1,54 +1,34 @@
 package guru.springframework.spring5webapp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * Created by jt on 12/23/19.
- */
 @Entity
 public class Publisher {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
-    private String addressLine1;
+    private String address1;
     private String city;
     private String state;
-    private String zip;
+    private Integer zip;
+
+    @OneToMany
+    @JoinColumn(name="publisher_id")
+    private Set<Book> books = new HashSet<>();
 
     public Publisher() {
     }
 
-    @Override
-    public String toString() {
-        return "Publisher{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", addressLine1='" + addressLine1 + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Publisher publisher = (Publisher) o;
-
-        return id != null ? id.equals(publisher.id) : publisher.id == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public Publisher(String name, String address1, String city, String state, Integer zip) {
+        this.name = name;
+        this.address1 = address1;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
     }
 
     public Long getId() {
@@ -67,12 +47,12 @@ public class Publisher {
         this.name = name;
     }
 
-    public String getAddressLine1() {
-        return addressLine1;
+    public String getAddress1() {
+        return address1;
     }
 
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
+    public void setAddress1(String address1) {
+        this.address1 = address1;
     }
 
     public String getCity() {
@@ -91,11 +71,46 @@ public class Publisher {
         this.state = state;
     }
 
-    public String getZip() {
+    public Integer getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(Integer zip) {
         this.zip = zip;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Publisher publisher = (Publisher) o;
+
+        return id != null ? id.equals(publisher.id) : publisher.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Publisher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address1='" + address1 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip=" + zip +
+                '}';
     }
 }
